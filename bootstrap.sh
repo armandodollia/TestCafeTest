@@ -9,13 +9,13 @@ readonly G_LOG_E='[ERROR]'
 main() {
     launch_xvfb
     launch_window_manager
-    run_vnc_server
+    # run_vnc_server
     run_tests
 }
 
 run_tests() {
     cd /usr/tests
-    testcafe firefox TestCafeTest/
+    testcafe 'firefox,chromium --no-sandbox' TestCafeTest/
 }
 
 launch_xvfb() {
