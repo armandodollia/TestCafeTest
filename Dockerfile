@@ -27,9 +27,6 @@ RUN apt-get install -y wget
 # Install wmctrl.
 RUN apt-get install -y wmctrl
 # Run bootstrap script
-RUN mkdir /usr/tests && cd /usr/tests && mkdir reports && cd /reports && mkdir screenshots && git clone $repo
+RUN mkdir /usr/tests && cd /usr/tests && git clone $repo && mkdir reports && cd reports && mkdir screenshots
 COPY /bootstrap.sh /
 CMD '/bootstrap.sh'
-#WORKDIR /usr/tests/TestCafeTest
-#RUN cd /usr/tests \
-#    && testcafe firefox TestCafeTest

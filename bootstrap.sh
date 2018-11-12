@@ -7,15 +7,12 @@ readonly G_LOG_E='[ERROR]'
 main() {
     launch_xvfb
     launch_window_manager
-    # run_vnc_server
     run_tests
 }
 
 run_tests() {
     cd /usr/tests
-#    testcafe 'firefox,chromium --no-sandbox' TestCafeTest/ -S -r xunit:/reports/report.xml
-    testcafe 'firefox,chromium --no-sandbox' tests/ --screenshots /usr/tests/reports/screenshots -r xunit:/usr/tests/reports/iManageReport.xml
-
+    testcafe 'firefox,chromium --no-sandbox' TestCafeTest/tests --screenshots /usr/tests/reports/screenshots -S -r xunit:/usr/tests/reports/iManageReport.xml
 }
 
 launch_xvfb() {
@@ -32,7 +29,7 @@ launch_xvfb() {
     do
         loopCount=$((loopCount+1))
         sleep 1
-        if [ ${loopCount} -gt ${timeout} ]
+        if [[ ${loopCount} -gt ${timeout} ]]
         then
             echo "${G_LOG_E} xvfb failed to start."
             exit 1
@@ -50,34 +47,13 @@ launch_window_manager() {
     do
         loopCount=$((loopCount+1))
         sleep 1
-        if [ ${loopCount} -gt ${timeout} ]
+        if [[ ${loopCount} -gt ${timeout} ]]
         then
             echo "${G_LOG_E} fluxbox failed to start."
             exit 1
         fi
     done
 }
-
-#run_vnc_server() {
-#    local passwordArgument='-nopw'
-#
-#    if [ -n "${VNC_SERVER_PASSWORD}" ]
-#    then
-#        local passwordFilePath="${HOME}/x11vnc.pass"
-#        if ! x11vnc -storepasswd "${VNC_SERVER_PASSWORD}" "${passwordFilePath}"
-#        then
-#            echo "${G_LOG_E} Failed to store x11vnc password."
-#            exit 1
-#        fi
-#        passwordArgument=-"-rfbauth ${passwordFilePath}"
-#        echo "${G_LOG_I} The VNC server will ask for a password."
-#    else
-#        echo "${G_LOG_W} The VNC server will NOT ask for a password."
-#    fi
-#
-#    x11vnc -display ${DISPLAY} -forever ${passwordArgument} &
-#    wait $!
-#}
 
 control_c() {
     echo ""
