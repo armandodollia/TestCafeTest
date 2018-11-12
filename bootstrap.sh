@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Based on: http://www.richud.com/wiki/Ubuntu_Fluxbox_GUI_with_x11vnc_and_Xvfb
-
 readonly G_LOG_I='[INFO]'
 readonly G_LOG_W='[WARN]'
 readonly G_LOG_E='[ERROR]'
@@ -15,7 +13,9 @@ main() {
 
 run_tests() {
     cd /usr/tests
-    testcafe 'firefox,chromium --no-sandbox' TestCafeTest/
+#    testcafe 'firefox,chromium --no-sandbox' TestCafeTest/ -S -r xunit:/reports/report.xml
+    testcafe 'firefox,chromium --no-sandbox' tests/ --screenshots /usr/tests/reports/screenshots -r xunit:/usr/tests/reports/iManageReport.xml
+
 }
 
 launch_xvfb() {
@@ -58,26 +58,26 @@ launch_window_manager() {
     done
 }
 
-run_vnc_server() {
-    local passwordArgument='-nopw'
-
-    if [ -n "${VNC_SERVER_PASSWORD}" ]
-    then
-        local passwordFilePath="${HOME}/x11vnc.pass"
-        if ! x11vnc -storepasswd "${VNC_SERVER_PASSWORD}" "${passwordFilePath}"
-        then
-            echo "${G_LOG_E} Failed to store x11vnc password."
-            exit 1
-        fi
-        passwordArgument=-"-rfbauth ${passwordFilePath}"
-        echo "${G_LOG_I} The VNC server will ask for a password."
-    else
-        echo "${G_LOG_W} The VNC server will NOT ask for a password."
-    fi
-
-    x11vnc -display ${DISPLAY} -forever ${passwordArgument} &
-    wait $!
-}
+#run_vnc_server() {
+#    local passwordArgument='-nopw'
+#
+#    if [ -n "${VNC_SERVER_PASSWORD}" ]
+#    then
+#        local passwordFilePath="${HOME}/x11vnc.pass"
+#        if ! x11vnc -storepasswd "${VNC_SERVER_PASSWORD}" "${passwordFilePath}"
+#        then
+#            echo "${G_LOG_E} Failed to store x11vnc password."
+#            exit 1
+#        fi
+#        passwordArgument=-"-rfbauth ${passwordFilePath}"
+#        echo "${G_LOG_I} The VNC server will ask for a password."
+#    else
+#        echo "${G_LOG_W} The VNC server will NOT ask for a password."
+#    fi
+#
+#    x11vnc -display ${DISPLAY} -forever ${passwordArgument} &
+#    wait $!
+#}
 
 control_c() {
     echo ""
