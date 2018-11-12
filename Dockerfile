@@ -28,5 +28,5 @@ RUN apt-get install -y wget
 RUN apt-get install -y wmctrl
 # Run bootstrap script
 RUN mkdir /usr/tests && cd /usr/tests && git clone $repo && mkdir reports && cd reports && mkdir screenshots
-COPY /bootstrap.sh /
-CMD '/bootstrap.sh'
+COPY /init.sh /
+CMD '/init.sh'
