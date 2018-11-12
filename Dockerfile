@@ -1,4 +1,5 @@
 FROM ubuntu:18.04
+ARG repo
 MAINTAINER Armando Dollia
 LABEL version="0.1"
 LABEL description="Running TestCafe from git repo"
@@ -26,7 +27,7 @@ RUN apt-get install -y wget
 # Install wmctrl.
 RUN apt-get install -y wmctrl
 # Run bootstrap script
-RUN mkdir /usr/tests && cd /usr/tests && git clone https://github.com/armandodollia/TestCafeTest.git
+RUN mkdir /usr/tests && cd /usr/tests && git clone $repo
 COPY /bootstrap.sh /
 CMD '/bootstrap.sh'
 #WORKDIR /usr/tests/TestCafeTest
