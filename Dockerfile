@@ -27,6 +27,7 @@ RUN apt-get install -y wget
 # Install wmctrl.
 RUN apt-get install -y wmctrl
 # Run bootstrap script
-RUN mkdir /usr/tests && cd /usr/tests && git clone $repo && mkdir reports && cd reports && mkdir screenshots
+RUN mkdir /usr/tests && mkdir /usr/tests/reports && mkdir /usr/tests/reports/screenshots
+RUN cd /usr/tests && git clone https://$repo
 COPY /init.sh /
 CMD '/init.sh'
