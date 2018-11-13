@@ -28,6 +28,6 @@ RUN apt-get install -y wget
 RUN apt-get install -y wmctrl
 # Run bootstrap script
 RUN mkdir /usr/tests && mkdir /usr/tests/reports && mkdir /usr/tests/reports/screenshots
-RUN cd /usr/tests && git clone https://$repo
+RUN cd /usr/tests && git clone $repo
 COPY /init.sh /
 CMD '/init.sh'

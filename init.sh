@@ -12,9 +12,8 @@ main() {
 
 run_tests() {
     cd /usr/tests
-    testcafe 'firefox,chromium --no-sandbox' TestCafeTest/tests --screenshots /usr/tests/reports/screenshots -S -r xunit:/usr/tests/reports/iManageReport.xml
+    testcafe 'firefox,chromium --no-sandbox' TestCafeTest/tests --screenshots /usr/tests/reports/ -S -r xunit:/usr/tests/reports/iManageReport.xml
 }
-
 launch_xvfb() {
     # Set defaults if the user did not specify envs.
     export DISPLAY=${XVFB_DISPLAY:-:1}
