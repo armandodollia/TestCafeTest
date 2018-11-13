@@ -30,4 +30,5 @@ RUN apt-get install -y wmctrl
 RUN mkdir /usr/tests && mkdir /usr/tests/reports && mkdir /usr/tests/reports/screenshots
 RUN cd /usr/tests && git clone $repo
 COPY /init.sh /
+RUN chmod +x /init.sh
 CMD '/init.sh'
